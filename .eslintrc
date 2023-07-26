@@ -1,0 +1,122 @@
+{
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:prettier/recommended",
+      "plugin:testing-library/recommended",
+      "plugin:testing-library/react"
+    ],
+    "plugins": [
+      "react",
+      "@typescript-eslint",
+      "prettier",
+      "react-hooks",
+      "testing-library",
+      "jest-dom"
+    ],
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true,
+      "jest": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "reportUnusedDisableDirectives": true,
+    "rules": {
+      "prettier/prettier": "error",
+      "semi": ["error", "always"],
+      "quotes": ["error", "double", { "avoidEscape": true }],
+      "no-console": ["warn", { "allow": ["info", "error"] }],
+      "comma-dangle": ["error", "always-multiline"],
+      "max-len": [
+        "error",
+        {
+          "code": 120,
+          "ignoreRegExpLiterals": true,
+          // Ignore long paths length when using "import from ..."
+          "ignorePattern": "^import.*from.*;$",
+          "ignoreUrls": true
+        }
+      ],
+      "require-atomic-updates": "warn",
+      "no-unused-vars": "off",
+      "react/prop-types": 0,
+      "cypress/no-unnecessary-waiting": 0,
+      "react/display-name": ["off"],
+      "no-undef": "off",
+      "no-redeclare": "off",
+      "no-restricted-imports": [
+        "error",
+        {
+          "paths": [
+            {
+              "name": "lodash",
+              "message": "please use lodash/* like imports"
+            }
+          ],
+          "patterns": ["lodash\\.*", "!lodash/*"]
+        }
+      ],
+      "@typescript-eslint/no-redeclare": [
+        "error",
+        { "ignoreDeclarationMerge": true }
+      ],
+      "@typescript-eslint/no-non-null-assertion": ["warn"],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "complexity": ["warn", 20]
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "overrides": [
+      {
+        "files": ["*.test.*"],
+        "rules": {
+          "no-restricted-syntax": [
+            "error",
+            {
+              "selector": "CallExpression[callee.name='wait']",
+              "message": "Avoid using wait on tests. Prefer waitFor instead. Using wait slows down tests and throw warning to use `act(() => {})`"
+            }
+          ],
+          "quotes": ["warn", "double", { "avoidEscape": true }]
+        }
+      },
+      {
+        "files": ["src/**/*.ts", "src/**/*.tsx"],
+        "rules": {
+          "no-restricted-syntax": [
+            "warn",
+            {
+              "selector": "CallExpression[callee.name='checkFlags']",
+              "message": "Prefer use useIsFlagEnabled instead."
+            }
+          ]
+        }
+      },
+      {
+        "files": ["*.test.*", "**/__mocks__/**/*", "**/tests/**/*"],
+        "rules": {
+          "complexity": "off",
+          "@typescript-eslint/no-explicit-any": "off"
+        }
+      },
+      {
+        "files": ["*.ts", "*.tsx"],
+        "rules": {
+          "@typescript-eslint/no-unused-vars": [2, { "args": "none" }]
+        }
+      }
+    ]
+}
+  
